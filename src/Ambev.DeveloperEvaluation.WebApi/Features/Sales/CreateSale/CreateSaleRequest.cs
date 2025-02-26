@@ -28,7 +28,7 @@ public class CreateSaleRequest
     /// <summary>
     ///     The list of items included in the sale.
     /// </summary>
-    public List<CreateSaleItemRequest> Items { get; set; } = new();
+    public List<CreateSaleItemRequest> Items { get; set; } = [];
 }
 
 /// <summary>

@@ -35,7 +35,7 @@ public class UpdateSaleRequest : IRequest<UpdateSaleResponse>
     /// <summary>
     ///     The list of items included in the sale.
     /// </summary>
-    public List<UpdateSaleItemRequest> Items { get; set; } = new();
+    public List<UpdateSaleItemRequest> Items { get; set; } = [];
 
     /// <summary>
     ///     Indicates whether the sale has been canceled.

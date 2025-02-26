@@ -40,7 +40,7 @@ public class CreateSaleResponse
     /// <summary>
     ///     The list of items included in the sale.
     /// </summary>
-    public List<SaleItem> Items { get; set; } = new();
+    public List<SaleItem> Items { get; set; } = [];
 
     /// <summary>
     ///     Indicates whether the sale has been canceled.
