@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Sales\DeleteSale\" />
     <Folder Include="Sales\GetSaleById\" />
     <Folder Include="Sales\GetPagedSales\" />
     <Folder Include="Sales\UpdateSale\" />
