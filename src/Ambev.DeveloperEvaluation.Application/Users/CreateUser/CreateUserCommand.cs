@@ -1,5 +1,7 @@
-﻿using Ambev.DeveloperEvaluation.Common.Validation;
+﻿using System.Linq;
+using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.Domain.Enums;
+using FluentValidation;
 using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Users.CreateUser;
