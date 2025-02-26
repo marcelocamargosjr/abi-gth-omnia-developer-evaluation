@@ -5,13 +5,14 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 
 /// <summary>
 ///     Handler for processing CreateSaleCommand requests.
 /// </summary>
-public class CreateSaleHandler(ISaleRepository saleRepository, IMapper mapper) : IRequestHandler<CreateSaleCommand, CreateSaleResult>
+public class CreateSaleHandler(ISaleRepository saleRepository, IMapper mapper, ILogger<CreateSaleHandler> logger) : IRequestHandler<CreateSaleCommand, CreateSaleResult>
 {
     /// <summary>
     ///     Handles the CreateSaleCommand request.
@@ -28,6 +29,9 @@ public class CreateSaleHandler(ISaleRepository saleRepository, IMapper mapper) :
         sale.ApplyBusinessRules();
 
         var createdSale = await saleRepository.CreateAsync(sale, cancellationToken);
+
+        logger.LogInformation("Sale {SaleNumber} created successfully.", createdSale.SaleNumber);
+
         return mapper.Map<CreateSaleResult>(createdSale);
     }
 }
