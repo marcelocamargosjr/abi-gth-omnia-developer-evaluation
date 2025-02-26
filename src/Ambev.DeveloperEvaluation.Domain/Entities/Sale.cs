@@ -1,6 +1,7 @@
 using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.Domain.Common;
 using Ambev.DeveloperEvaluation.Domain.Validation;
+using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
@@ -83,6 +84,9 @@ public class Sale : BaseEntity
     {
         foreach (var saleItem in Items)
         {
+            if (saleItem.Quantity > 20)
+                throw new ValidationException("Cannot sell more than 20 identical items.");
+
             saleItem.Discount = CalculateDiscount(saleItem.Quantity);
             saleItem.TotalAmount = saleItem.Quantity * saleItem.UnitPrice;
         }
