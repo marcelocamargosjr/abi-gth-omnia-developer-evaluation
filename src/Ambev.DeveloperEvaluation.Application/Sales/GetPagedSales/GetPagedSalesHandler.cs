@@ -46,8 +46,7 @@ public class GetPagedSalesHandler : IRequestHandler<GetPagedSalesQuery, List<Get
             throw new ValidationException(validationResult.Errors);
         }
 
-        _logger.LogInformation("Fetching sales with pagination. Page: {Page}, Size: {Size}, Order: {Order}",
-            request.Page, request.Size, request.Order);
+        _logger.LogInformation("Fetching sales with pagination. Page: {Page}, Size: {Size}, Order: {Order}", request.Page, request.Size, request.Order);
 
         var sales = await _saleRepository.GetPagedAsync(request.Page, request.Size, request.Order, cancellationToken);
 

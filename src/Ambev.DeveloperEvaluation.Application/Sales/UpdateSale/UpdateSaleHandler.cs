@@ -12,8 +12,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 /// <summary>
 ///     Handler for processing UpdateSaleCommand requests.
 /// </summary>
-public class UpdateSaleHandler(ISaleRepository saleRepository, IMapper mapper, ILogger<UpdateSaleHandler> logger)
-    : IRequestHandler<UpdateSaleCommand, UpdateSaleResult>
+public class UpdateSaleHandler(ISaleRepository saleRepository, IMapper mapper, ILogger<UpdateSaleHandler> logger) : IRequestHandler<UpdateSaleCommand, UpdateSaleResult>
 {
     /// <summary>
     ///     Handles the UpdateSaleCommand request.
