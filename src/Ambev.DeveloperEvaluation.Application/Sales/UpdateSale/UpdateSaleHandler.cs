@@ -29,6 +29,7 @@ public class UpdateSaleHandler(ISaleRepository saleRepository, IMapper mapper) :
             throw new KeyNotFoundException($"Sale with ID {command.Id} not found");
 
         mapper.Map(command, existingSale);
+        existingSale.ApplyBusinessRules();
 
         await saleRepository.UpdateAsync(existingSale, cancellationToken);
         return mapper.Map<UpdateSaleResult>(existingSale);

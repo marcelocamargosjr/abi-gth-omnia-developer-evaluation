@@ -70,7 +70,7 @@ public class SalesController : BaseController
     /// <param name="id">The unique identifier of the sale.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The sale details if found.</returns>
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(ApiResponseWithData<GetSaleByIdResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -125,14 +125,22 @@ public class SalesController : BaseController
     /// <summary>
     ///     Updates an existing sale.
     /// </summary>
+    /// <param name="id">The unique identifier of the sale to update.</param>
     /// <param name="request">The sale update request.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The updated sale details.</returns>
-    [HttpPut]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(typeof(ApiResponseWithData<UpdateSaleResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> UpdateSale([FromBody] UpdateSaleRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> UpdateSale([FromRoute] Guid id, [FromBody] UpdateSaleRequest request, CancellationToken cancellationToken)
     {
+        if (id != request.Id)
+            return BadRequest(new ApiResponse
+            {
+                Success = false,
+                Message = "ID in the URL does not match the ID in the request body."
+            });
+
         var validator = new UpdateSaleRequestValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
@@ -156,7 +164,7 @@ public class SalesController : BaseController
     /// <param name="id">The unique identifier of the sale to delete.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>Success response if the sale was deleted.</returns>
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:guid}")]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]

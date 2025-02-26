@@ -25,6 +25,7 @@ public class CreateSaleHandler(ISaleRepository saleRepository, IMapper mapper) :
             throw new ValidationException(validationResult.Errors);
 
         var sale = mapper.Map<Sale>(command);
+        sale.ApplyBusinessRules();
 
         var createdSale = await saleRepository.CreateAsync(sale, cancellationToken);
         return mapper.Map<CreateSaleResult>(createdSale);

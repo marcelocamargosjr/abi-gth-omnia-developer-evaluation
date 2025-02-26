@@ -77,6 +77,20 @@ public class Sale : BaseEntity
     }
 
     /// <summary>
+    ///     Applies business rules to all sale items.
+    /// </summary>
+    public void ApplyBusinessRules()
+    {
+        foreach (var saleItem in Items)
+        {
+            saleItem.Discount = CalculateDiscount(saleItem.Quantity);
+            saleItem.TotalAmount = saleItem.Quantity * saleItem.UnitPrice;
+        }
+
+        CalculateTotalAmount();
+    }
+
+    /// <summary>
     ///     Calculates the discount based on the quantity.
     /// </summary>
     private static decimal CalculateDiscount(int quantity)
